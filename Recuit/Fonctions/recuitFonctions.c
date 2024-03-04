@@ -27,8 +27,8 @@ char* fileNameResults="Resultats";
 FILE* fdGnuplotCout;
 
 /*_________  Choix de la Fonction d'Evaluation   ___________________________*/
-#define F(x)     f1_3(x)  /* ... et la 1ere fonction exemple (ci-dessous)   */ // on fait appel qu'à F, au max 2 appels à F
-#define FNAME    "f1_3"   /* indiquer aussi son libelle (pour impressions)  */
+#define F(x)     f1_1(x)  /* ... et la 1ere fonction exemple (ci-dessous)   */ // on fait appel qu'à F, au max 2 appels à F
+#define FNAME    "f1_1"   /* indiquer aussi son libelle (pour impressions)  */
 
 /*_________  Etats du Recuit  ______________________________________________*/
 double x0;                       /* Etat initial */
