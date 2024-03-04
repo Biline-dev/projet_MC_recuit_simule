@@ -120,7 +120,23 @@ void transformationChemin(Chemin *cheminY,
  *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
                      /*  modifier cheminX !!!                            */
-  ...
+
+  if (amplitude>cheminX.nbVilles) return;
+
+  int nb_boucle = myRandomMinMax(1, amplitude);
+  
+  for(int i=0; i<nb_boucle; i++){
+
+    int indice_ville_1 = myRandomMinMax(0, cheminY->nbVilles-1);
+    int indice_ville_2 = myRandomMinMax(0, cheminY->nbVilles-1);
+
+    int tempc = cheminY->parcours[indice_ville_1];
+    cheminY->parcours[indice_ville_1] = cheminY->parcours[indice_ville_2];
+    cheminY->parcours[indice_ville_2] = tempc;
+
+  }
+  calculCoutChemin(*cheminY);
+  
 }
 
 /*--------------- Parametres de controle du recuit --------------------*/
@@ -156,10 +172,10 @@ Chemin y;                /* Solution voisine  */
 Chemin xopt;             /* Solution optimale */
 double fx, fy, fxopt;    /* Valeurs */
 
-/*________  Fonctions Exemples  (Fonction de coût) _______________________*/
+/*________  Fonctions Exemples  (Fonction de coï¿½t) _______________________*/
 double f(Chemin chemin)
 {
- return ... ;
+ return calculCoutChemin(chemin) ;//calcule cout chelin it's a functino
 }
 
 /*________  Voisinage (modification configuration)  ______________________*/
@@ -170,7 +186,7 @@ void transformation(void) {  /* y est au voisinage de x suivant amplitude */
 /*________  Modification temperature  ____________________________________*/
 double g(void) {
 #if 1
- return( ... );       /* On decroit la temperature en utilisant T * alpha */
+ return( T * alpha);       /* On decroit la temperature en utilisant T * alpha */
 #else
  return( ... );       /* On decroit la temperature en utilisant T - alpha */
 #endif
@@ -394,44 +410,42 @@ int main(void)
 
 /*__ Recuit Simule  ___________________________________________*/
 
-    x        = xopt  = ... ;         /* Configuration initiale */
-    fx       = fxopt = ... ;         /* Cout initial           */
+    x        = xopt  = x0 ;         /* Configuration initiale */
+    fx       = fxopt =  F(x0);         /* Cout initial           */
      
-    T        = ... ;                 /* Temperature initiale   */
+    T        = Ti ;                 /* Temperature initiale   */
     NbEssais = 0;
  
     EcrireCoutEtVisu(fx,x,1);
     PrintALine(fdResults); /* Sauvegarde configuration initiale       */
    
-    while ( ... ) {                            /* 1er critere d'arret */
+    while ( T> Tf) {                            /* 1er critere d'arret */
 
        int    rep;    /* Nb de repetitions a temperature constante    */
        double p, Df;  /* p: pour tirage aleatoire, Df: pour Delta f   */
 
        for(rep=0; rep<MaxRepetitions; rep++){ /* 2eme critere d'arret */
 
-          ...                     /* transformation => y, voisin de x */
-          fy = ... ;
-
-          Df = ... ;                      /* Nouveau - Ancien         */
-          
-          if ( ... ) {                    /* Descente !!              */
-                x  = ... ;                /* y devient l'etat courant */
-                fx = ... ;                                
-                if ( ... ){               /* Mise a jour optimum ?    */
-                    xopt  = ... ;
-                    fxopt = ... ;
+          transformation();                     /* transformation => y, voisin de x */
+          fy = F(y);
+          Df = fy - fx;                      /* Nouveau - Ancien         */
+          if ( Df< 0) {                    /* Descente !!              */
+                x  = y ;                /* y devient l'etat courant */
+                fx = fy ;                                
+                if ( fx< F(xopt)){               /* Mise a jour optimum ?    */
+                    xopt  = x ;
+                    fxopt = F(xopt) ;
 #if VISUMEILLEUR==1
                     EcrireCoutEtVisu(fxopt,xopt,1);
 #endif
                 }                
           } 
           else {                         /* Remontee : acceptee ??   */
-		 p = myRandom01() ;
-                 if ( ... ) {
-                    x  = ... ;           /* y devient l'etat courant */
-                    fx = ... ;                
-                 }                
+		            p = myRandom01();
+                if (p < exp(-Df/T)) {
+                    x  = y;           /* y devient l'etat courant */
+                    fx = fy ;                
+                }                
           }
 
           NbEssais++;
@@ -442,7 +456,7 @@ int main(void)
           PrintALine(fdResults);   /* Sauvegarde resulats courants */
        } 
         
-       T = ... ;                        /* modifier la temperature */
+       T = g() ;                        /* modifier la temperature */
 
        usleep(10);
     } /* end while */
