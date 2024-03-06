@@ -5,9 +5,11 @@ import csv
 
 if __name__ == "__main__":
 
-    nb_simulations = 2  # Change this to the number of simulations you want
+    nb_simulations = 3  # Change this to the number of simulations you want
 
-    print(os.getcwd())
+    file_directory = os.path.dirname(os.path.abspath(__file__))
+
+    os.chdir(file_directory)
     with open("../data/result_parameters.csv", "w", newline="") as csv_file:
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(["nbVille", "tInit", "tFin", "alpha", "amplitude", "MaxRepetitions", "Cout"])

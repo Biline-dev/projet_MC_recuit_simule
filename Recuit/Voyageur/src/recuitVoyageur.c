@@ -134,9 +134,7 @@ void transformationChemin(Chemin *cheminY,
     cheminY->parcours[indice_ville_1] = cheminY->parcours[indice_ville_2];
     cheminY->parcours[indice_ville_2] = tempc;
 
-  }
-  calculCoutChemin(*cheminY);
-  
+  }  
 }
 
 /*--------------- Parametres de controle du recuit --------------------*/
@@ -435,9 +433,9 @@ int main(void)
                 if ( fx< F(xopt)){               /* Mise a jour optimum ?    */
                     xopt  = x ;
                     fxopt = F(xopt) ;
-#if VISUMEILLEUR==1
+          #if VISUMEILLEUR==1
                     EcrireCoutEtVisu(fxopt,xopt,1);
-#endif
+          #endif
                 }                
           } 
           else {                         /* Remontee : acceptee ??   */
