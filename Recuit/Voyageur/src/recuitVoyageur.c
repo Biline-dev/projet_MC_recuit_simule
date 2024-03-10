@@ -114,8 +114,7 @@ void dessineChemin(FILE* flot, Chemin chemin)
  endPointsToGnuplot(flot);
 }
 /*--*/
-void transformationChemin(Chemin *cheminY,
-                          Chemin  cheminX, int amplitude)
+void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
 {
  *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
@@ -125,7 +124,8 @@ void transformationChemin(Chemin *cheminY,
 
   int nb_boucle = myRandomMinMax(1, amplitude);
   
-  for(int i=0; i<nb_boucle; i++){
+  for(int i=0; i<nb_boucle; i++)
+  {
 
     int indice_ville_1 = myRandomMinMax(0, cheminY->nbVilles-1);
     int indice_ville_2 = myRandomMinMax(0, cheminY->nbVilles-1);
@@ -313,7 +313,7 @@ void EcrireCoutEtVisu(double fx, Chemin x,int affichageObligatoire)
 {
  (void)fx;(void)x;(void)affichageObligatoire;
  ecrireCout(fdCout,NbEssais,fx);
- Visu(x,affichageObligatoire);
+ //Visu(x,affichageObligatoire);
 }
 
 void FermetureFlots(void)
@@ -463,7 +463,7 @@ int main(void)
  printf("Temperature a la fin de l'algorithme=%f\n",T);
  printf("Cout optimal (fxopt)=%f\n",fxopt);
  printf("<--------------------\n");
- Visu(xopt,1);
+ //Visu(xopt,1);
 
  FermetureFlots();
 
