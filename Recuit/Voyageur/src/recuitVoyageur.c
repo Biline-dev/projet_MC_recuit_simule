@@ -113,7 +113,9 @@ void dessineChemin(FILE* flot, Chemin chemin)
 
  endPointsToGnuplot(flot);
 }
+
 /*--*/
+
 void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
 {
  *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
@@ -136,6 +138,101 @@ void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
 
   }  
 }
+
+/*---------------------------------------------------------*/
+
+// void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
+// {
+
+//   *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
+//                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
+//                      /*  modifier cheminX !!!                            */
+
+//   if (amplitude>cheminX.nbVilles) return;
+
+//   int nb_boucle = myRandomMinMax(1, amplitude);
+
+//   for (size_t i = 0; i < nb_boucle; i++)
+//   {
+//     int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
+//     int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
+
+//     if(indice_ville_1 > indice_ville_2)
+//     {
+//       int temp = indice_ville_1;
+//       indice_ville_1 = indice_ville_2;
+//       indice_ville_2 = temp;
+//     }
+
+//     int idx = indice_ville_1 + (indice_ville_2 - indice_ville_1) / 2;
+
+//     for (size_t i = indice_ville_1; i < idx; i++)
+//     {
+//       int ville_temporaire = cheminY->parcours[i];
+//       cheminY->parcours[i] = cheminY->parcours[indice_ville_2 - i];
+//       cheminY->parcours[indice_ville_2 - i] = ville_temporaire;
+//     }
+//   }
+// }
+
+/*---------------------------------------------------------*/
+
+// void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
+// {
+
+//   *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
+//                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
+//                      /*  modifier cheminX !!!                            */
+
+//   if (amplitude>cheminX.nbVilles) return;
+
+//   int nb_boucle = myRandomMinMax(1, amplitude);
+
+//   for (size_t i = 0; i < nb_boucle; i++)
+//   {
+//     //Génération des indices
+//     int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
+//     int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
+//     int indice_ville_3 = myRandomMinMax(0,cheminY->nbVilles -1);
+
+//     //Tri de indices
+//     if(indice_ville_1 > indice_ville_2)
+//     {
+//       int temp = indice_ville_1;
+//       indice_ville_1 = indice_ville_2;
+//       indice_ville_2 = temp;
+//     }
+
+//     if(indice_ville_1 > indice_ville_3)
+//     {
+//       int temp = indice_ville_1;
+//       indice_ville_1 = indice_ville_3;
+//       indice_ville_3 = temp;
+//     }
+
+//     if(indice_ville_2 > indice_ville_3)
+//     {
+//     int temp = indice_ville_2;
+//     indice_ville_2 = indice_ville_3;
+//     indice_ville_3 = temp;
+//     }
+
+//     int temp;
+//     for (int i = indice_ville_1; i <= indice_ville_2; i++)
+//     {
+
+//       temp = cheminY->parcours[indice_ville_1];
+
+//       for (int j = indice_ville_1; j < indice_ville_3; j++)
+//       {
+//         cheminY->parcours[j] = cheminY->parcours[j + 1];
+//       }
+//       cheminY->parcours[indice_ville_3] = temp;
+//     }
+//   }
+// }
+
+/*--*/
 
 /*--------------- Parametres de controle du recuit --------------------*/
 

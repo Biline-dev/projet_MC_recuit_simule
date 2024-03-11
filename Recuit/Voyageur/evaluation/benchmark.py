@@ -12,10 +12,11 @@ def traitement_ais():
     #Changer en fonction
     nbVille = 30
     typeMutation = 1
+    typeModificationTemperature = 1
     #Génération des paramètres aléatoires
     tInit = random.randint(1, 5000)
-    tFin = random.uniform(0, 100)
-    alpha = random.uniform(0.8, 1.0)
+    tFin = round(random.uniform(0, 100),3)
+    alpha = round(random.uniform(0.8, 1.0),3)
     amplitude = random.randint(nbVille // 10, nbVille // 4)
     MaxRepetitions = random.randint(1, 100)
 
@@ -48,7 +49,7 @@ def traitement_ais():
         cout = float(match2.group(1))
         with open("../data/resultats.csv",'a') as csvfile:
                 csvWriter = csv.writer(csvfile)
-                csvWriter.writerow([nbVille,typeMutation,tInit,tFin,alpha,amplitude,MaxRepetitions,temperature_fin_execution,cout,execution_time])
+                csvWriter.writerow([nbVille,typeModificationTemperature,typeMutation,tInit,tFin,alpha,amplitude,MaxRepetitions,round(temperature_fin_execution,3),round(cout,2),execution_time])
 
     else:
         print("Aucun coût trouvé après la ligne spécifique.")
