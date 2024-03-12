@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <math.h>
 #include "random.h"
 #include "gnuplot.h"
 #include "geo.h"
@@ -376,13 +376,26 @@ void transformation(int typeMutation)
 }
 
 /*________  Modification temperature  ____________________________________*/
-double g(void) {
-#if 1
- return( T * alpha);       /* On decroit la temperature en utilisant T * alpha */
-#else
- return( ... );       /* On decroit la temperature en utilisant T - alpha */
-#endif
+double g(void)
+{
+  #if 1
+    return(T * alpha);       /* On decroit la temperature en utilisant T * alpha */
+  #else
+    return(T * alpha);       /* On decroit la temperature en utilisant T - alpha */
+  #endif
 }
+
+// //logarithmic_cooling
+// double g(void)
+// {
+//   return T / log(Alpha + 1);
+// }
+
+// //inverse_cooling
+// double g(void)
+// {
+//   return T / (1 + Alpha * T);
+// }
 
 /*------ visu du Cout -------- */
 void visualiserCout(FILE *fd, char *fileName, int affichageObligatoire)
