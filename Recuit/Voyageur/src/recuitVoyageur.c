@@ -116,27 +116,123 @@ void dessineChemin(FILE* flot, Chemin chemin)
 
 /*--*/
 
-void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
+void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude, int type)
 {
- *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
+  if(type == 1)
+  {
+    *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
                      /*  modifier cheminX !!!                            */
 
-  if (amplitude>cheminX.nbVilles) return;
+    if (amplitude>cheminX.nbVilles) return;
 
-  int nb_boucle = myRandomMinMax(1, amplitude);
-  
-  for(int i=0; i<nb_boucle; i++)
+    int nb_boucle = myRandomMinMax(1, amplitude);
+    
+    for(int i=0; i<nb_boucle; i++)
+    {
+
+      int indice_ville_1 = myRandomMinMax(0, cheminY->nbVilles-1);
+      int indice_ville_2 = myRandomMinMax(0, cheminY->nbVilles-1);
+
+      int tempc = cheminY->parcours[indice_ville_1];
+      cheminY->parcours[indice_ville_1] = cheminY->parcours[indice_ville_2];
+      cheminY->parcours[indice_ville_2] = tempc;
+
+    }
+  }
+
+  else if(type == 2)
   {
+    *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
+                     /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
+                     /*  modifier cheminX !!!                            */
 
-    int indice_ville_1 = myRandomMinMax(0, cheminY->nbVilles-1);
-    int indice_ville_2 = myRandomMinMax(0, cheminY->nbVilles-1);
+    if (amplitude>cheminX.nbVilles) return;
 
-    int tempc = cheminY->parcours[indice_ville_1];
-    cheminY->parcours[indice_ville_1] = cheminY->parcours[indice_ville_2];
-    cheminY->parcours[indice_ville_2] = tempc;
+    int nb_boucle = myRandomMinMax(1, amplitude);
 
-  }  
+    for (size_t i = 0; i < nb_boucle; i++)
+    {
+      int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
+      int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
+
+      if(indice_ville_1 > indice_ville_2)
+      {
+        int temp = indice_ville_1;
+        indice_ville_1 = indice_ville_2;
+        indice_ville_2 = temp;
+      }
+
+      int idx = indice_ville_1 + (indice_ville_2 - indice_ville_1) / 2;
+
+      for (size_t i = indice_ville_1; i < idx; i++)
+      {
+        int ville_temporaire = cheminY->parcours[i];
+        cheminY->parcours[i] = cheminY->parcours[indice_ville_2 - i];
+        cheminY->parcours[indice_ville_2 - i] = ville_temporaire;
+      }
+    }
+  }
+
+  else if(type == 3)
+  {
+    *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
+                     /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
+                     /*  modifier cheminX !!!                            */
+
+    if (amplitude>cheminX.nbVilles) return;
+
+    int nb_boucle = myRandomMinMax(1, amplitude);
+
+    for (size_t i = 0; i < nb_boucle; i++)
+    {
+      //Génération des indices
+      int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
+      int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
+      int indice_ville_3 = myRandomMinMax(0,cheminY->nbVilles -1);
+
+      //Tri de indices
+      if(indice_ville_1 > indice_ville_2)
+      {
+        int temp = indice_ville_1;
+        indice_ville_1 = indice_ville_2;
+        indice_ville_2 = temp;
+      }
+
+      if(indice_ville_1 > indice_ville_3)
+      {
+        int temp = indice_ville_1;
+        indice_ville_1 = indice_ville_3;
+        indice_ville_3 = temp;
+      }
+
+      if(indice_ville_2 > indice_ville_3)
+      {
+      int temp = indice_ville_2;
+      indice_ville_2 = indice_ville_3;
+      indice_ville_3 = temp;
+      }
+
+      int temp;
+      for (int i = indice_ville_1; i <= indice_ville_2; i++)
+      {
+
+        temp = cheminY->parcours[indice_ville_1];
+
+        for (int j = indice_ville_1; j < indice_ville_3; j++)
+        {
+          cheminY->parcours[j] = cheminY->parcours[j + 1];
+        }
+        cheminY->parcours[indice_ville_3] = temp;
+      }
+    }
+  }
+
+  else
+  {
+    printf("Type de mutation incorrecte !");
+    exit(-1);
+  }
 }
 
 /*---------------------------------------------------------*/
@@ -144,35 +240,35 @@ void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
 // void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
 // {
 
-//   *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
-//                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
-//                      /*  modifier cheminX !!!                            */
+  // *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
+  //                    /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
+  //                    /*  modifier cheminX !!!                            */
 
-//   if (amplitude>cheminX.nbVilles) return;
+  // if (amplitude>cheminX.nbVilles) return;
 
-//   int nb_boucle = myRandomMinMax(1, amplitude);
+  // int nb_boucle = myRandomMinMax(1, amplitude);
 
-//   for (size_t i = 0; i < nb_boucle; i++)
-//   {
-//     int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
-//     int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
+  // for (size_t i = 0; i < nb_boucle; i++)
+  // {
+  //   int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
+  //   int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
 
-//     if(indice_ville_1 > indice_ville_2)
-//     {
-//       int temp = indice_ville_1;
-//       indice_ville_1 = indice_ville_2;
-//       indice_ville_2 = temp;
-//     }
+  //   if(indice_ville_1 > indice_ville_2)
+  //   {
+  //     int temp = indice_ville_1;
+  //     indice_ville_1 = indice_ville_2;
+  //     indice_ville_2 = temp;
+  //   }
 
-//     int idx = indice_ville_1 + (indice_ville_2 - indice_ville_1) / 2;
+  //   int idx = indice_ville_1 + (indice_ville_2 - indice_ville_1) / 2;
 
-//     for (size_t i = indice_ville_1; i < idx; i++)
-//     {
-//       int ville_temporaire = cheminY->parcours[i];
-//       cheminY->parcours[i] = cheminY->parcours[indice_ville_2 - i];
-//       cheminY->parcours[indice_ville_2 - i] = ville_temporaire;
-//     }
-//   }
+  //   for (size_t i = indice_ville_1; i < idx; i++)
+  //   {
+  //     int ville_temporaire = cheminY->parcours[i];
+  //     cheminY->parcours[i] = cheminY->parcours[indice_ville_2 - i];
+  //     cheminY->parcours[indice_ville_2 - i] = ville_temporaire;
+  //   }
+  // }
 // }
 
 /*---------------------------------------------------------*/
@@ -180,56 +276,56 @@ void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
 // void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude)
 // {
 
-//   *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
-//                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
-//                      /*  modifier cheminX !!!                            */
+  // *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
+  //                    /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
+  //                    /*  modifier cheminX !!!                            */
 
-//   if (amplitude>cheminX.nbVilles) return;
+  // if (amplitude>cheminX.nbVilles) return;
 
-//   int nb_boucle = myRandomMinMax(1, amplitude);
+  // int nb_boucle = myRandomMinMax(1, amplitude);
 
-//   for (size_t i = 0; i < nb_boucle; i++)
-//   {
-//     //Génération des indices
-//     int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
-//     int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
-//     int indice_ville_3 = myRandomMinMax(0,cheminY->nbVilles -1);
+  // for (size_t i = 0; i < nb_boucle; i++)
+  // {
+  //   //Génération des indices
+  //   int indice_ville_1 = myRandomMinMax(0,cheminY->nbVilles -1);
+  //   int indice_ville_2 = myRandomMinMax(0,cheminY->nbVilles -1);
+  //   int indice_ville_3 = myRandomMinMax(0,cheminY->nbVilles -1);
 
-//     //Tri de indices
-//     if(indice_ville_1 > indice_ville_2)
-//     {
-//       int temp = indice_ville_1;
-//       indice_ville_1 = indice_ville_2;
-//       indice_ville_2 = temp;
-//     }
+  //   //Tri de indices
+  //   if(indice_ville_1 > indice_ville_2)
+  //   {
+  //     int temp = indice_ville_1;
+  //     indice_ville_1 = indice_ville_2;
+  //     indice_ville_2 = temp;
+  //   }
 
-//     if(indice_ville_1 > indice_ville_3)
-//     {
-//       int temp = indice_ville_1;
-//       indice_ville_1 = indice_ville_3;
-//       indice_ville_3 = temp;
-//     }
+  //   if(indice_ville_1 > indice_ville_3)
+  //   {
+  //     int temp = indice_ville_1;
+  //     indice_ville_1 = indice_ville_3;
+  //     indice_ville_3 = temp;
+  //   }
 
-//     if(indice_ville_2 > indice_ville_3)
-//     {
-//     int temp = indice_ville_2;
-//     indice_ville_2 = indice_ville_3;
-//     indice_ville_3 = temp;
-//     }
+  //   if(indice_ville_2 > indice_ville_3)
+  //   {
+  //   int temp = indice_ville_2;
+  //   indice_ville_2 = indice_ville_3;
+  //   indice_ville_3 = temp;
+  //   }
 
-//     int temp;
-//     for (int i = indice_ville_1; i <= indice_ville_2; i++)
-//     {
+  //   int temp;
+  //   for (int i = indice_ville_1; i <= indice_ville_2; i++)
+  //   {
 
-//       temp = cheminY->parcours[indice_ville_1];
+  //     temp = cheminY->parcours[indice_ville_1];
 
-//       for (int j = indice_ville_1; j < indice_ville_3; j++)
-//       {
-//         cheminY->parcours[j] = cheminY->parcours[j + 1];
-//       }
-//       cheminY->parcours[indice_ville_3] = temp;
-//     }
-//   }
+  //     for (int j = indice_ville_1; j < indice_ville_3; j++)
+  //     {
+  //       cheminY->parcours[j] = cheminY->parcours[j + 1];
+  //     }
+  //     cheminY->parcours[indice_ville_3] = temp;
+  //   }
+  // }
 // }
 
 /*--*/
@@ -274,8 +370,9 @@ double f(Chemin chemin)
 }
 
 /*________  Voisinage (modification configuration)  ______________________*/
-void transformation(void) {  /* y est au voisinage de x suivant amplitude */
-  transformationChemin(&y,x,amplitude);                   /* Doonnneeee ! */
+void transformation(int typeMutation)
+{  /* y est au voisinage de x suivant amplitude */
+  transformationChemin(&y,x,amplitude,typeMutation);                   /* Doonnneeee ! */
 }
 
 /*________  Modification temperature  ____________________________________*/
@@ -423,7 +520,8 @@ void FermetureFlots(void)
 }
 
 /*________  Initialisation  ___________________________________________*/
-int main(void)
+
+int main(int argc, char *argv[])
 {
  char rep;
 
@@ -433,6 +531,15 @@ int main(void)
  genereCarte(&carte,COTECARTE);
 #endif
 
+// Vérifier si au moins un argument a été fourni
+  if (argc < 3)
+  {
+    printf("Usage: %s <type_mutation> <type_modif_temp>\n", argv[0]);
+    exit(-1);
+  }
+
+  int typeMutation = atoi(argv[1]);
+  int typeModificationTemperature = atoi(argv[2]);
 /*
  printf("f(x)=%s\n", FNAME );
 
@@ -521,7 +628,7 @@ int main(void)
 
        for(rep=0; rep<MaxRepetitions; rep++){ /* 2eme critere d'arret */
 
-          transformation();                     /* transformation => y, voisin de x */
+          transformation(typeMutation);                     /* transformation => y, voisin de x */
           fy = F(y);
           Df = fy - fx;                      /* Nouveau - Ancien         */
           if ( Df< 0) {                    /* Descente !!              */

@@ -10,18 +10,19 @@ import os
 def traitement_ais():
 
     #Changer en fonction
-    nbVille = 30
-    typeMutation = 1
+    nbVille = 100
     typeModificationTemperature = 1
+
     #Génération des paramètres aléatoires
-    tInit = random.randint(1, 5000)
-    tFin = round(random.uniform(0, 100),3)
-    alpha = round(random.uniform(0.8, 1.0),3)
+    typeMutation = random.randint(1, 3)
+    tInit = random.randint(800, 5000)
+    tFin = round(random.uniform(0.01, 0.02),3)
+    alpha = round(random.uniform(0.85, 1.0),3)
     amplitude = random.randint(nbVille // 10, nbVille // 4)
-    MaxRepetitions = random.randint(1, 100)
+    MaxRepetitions = random.randint(100, 2500)
 
     #Création du string de la commande à exécuter
-    commande = f"printf '{tInit}\n{tFin}\n{alpha}\n{amplitude}\n{MaxRepetitions}n\n' | ../src/recuitVoyageur"
+    commande = f"printf '{tInit}\n{tFin}\n{alpha}\n{amplitude}\n{MaxRepetitions}n\n' | ../src/recuitVoyageur {typeMutation} {typeModificationTemperature}"
 
     start_time = 0.0
     execution_time = 0.0
