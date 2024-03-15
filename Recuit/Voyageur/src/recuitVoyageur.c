@@ -118,7 +118,8 @@ void dessineChemin(FILE* flot, Chemin chemin)
 
 void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude, int type)
 {
-  if(type == 1)
+
+  if(type == 1) //Echange
   {
     *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
@@ -141,7 +142,7 @@ void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude, int ty
     }
   }
 
-  else if(type == 2)
+  else if(type == 2)//Inversion
   {
     *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
@@ -174,7 +175,7 @@ void transformationChemin(Chemin *cheminY,Chemin  cheminX, int amplitude, int ty
     }
   }
 
-  else if(type == 3)
+  else if(type == 3)//Translation
   {
     *cheminY = cheminX; /* *cheminY est au voisinage de cheminX suivant     */
                      /*  l'amplitude. Apres *cheminY =  cheminX, ne plus */
