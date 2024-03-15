@@ -377,13 +377,14 @@ void transformation(int typeMutation)
 }
 
 /*________  Modification temperature  ____________________________________*/
-double g(void)
+double g(int type)
 {
-  #if 1
+  if(type == 1)
     return(T * alpha);       /* On decroit la temperature en utilisant T * alpha */
-  #else
-    return(T * alpha);       /* On decroit la temperature en utilisant T - alpha */
-  #endif
+  if(type == 2)
+    return(T - alpha);       /* On decroit la temperature en utilisant T - alpha */
+  if(type == 3)
+    return(T / (1 + alpha * T));
 }
 
 // //logarithmic_cooling
@@ -672,7 +673,7 @@ int main(int argc, char *argv[])
           PrintALine(fdResults);   /* Sauvegarde resulats courants */
        } 
         
-       T = g() ;                        /* modifier la temperature */
+       T = g(typeModificationTemperature);                        /* modifier la temperature */
 
        usleep(10);
     } /* end while */
