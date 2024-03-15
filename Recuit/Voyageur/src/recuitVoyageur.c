@@ -378,14 +378,12 @@ void transformation(int typeMutation)
 /*________  Modification temperature  ____________________________________*/
 double g(int type)
 {
-  // if(type == 1)
-  //   return(T * alpha);       /* On decroit la temperature en utilisant T * alpha */
   if(type == 1)
     return(T * alpha);       /* On decroit la temperature en utilisant T * alpha */
   if(type == 2)
-    return(T / log(alpha + 1));       /* On decroit la temperature en utilisant T * alpha */
+    return(T - alpha);       /* On decroit la temperature en utilisant T - alpha */
   if(type == 3)
-    return(T / (1 + alpha * T));       /* On decroit la temperature en utilisant T * alpha */
+    return(T / (1 + alpha * T));
 }
 
 // //logarithmic_cooling

@@ -11,12 +11,12 @@ def traitement_ais():
 
     #Changer en fonction
     nbVille = 100
-    typeModificationTemperature = 1
 
     #Génération des paramètres aléatoires
+    typeModificationTemperature = random.randint(1, 3)
     typeMutation = random.randint(1, 3)
-    tInit = random.randint(800, 5000)
-    tFin = round(random.uniform(0.01, 0.02),3)
+    tInit = random.randint(100, 5000)
+    tFin = round(random.uniform(0, 1),4)
     alpha = round(random.uniform(0.85, 1.0),3)
     amplitude = random.randint(nbVille // 10, nbVille // 4)
     MaxRepetitions = random.randint(100, 2500)
@@ -39,8 +39,8 @@ def traitement_ais():
     execution_time = round(end_time - start_time,3)
     # Utilisation d'une expression régulière pour extraire le coût après la ligne spécifique
     # L'utilisation des parenthèse représente un groupe qui peut être extrait grâce à match.group()
-    pattern = re.compile(r"Temperature a la fin de l'algorithme=([0-9.]+)")
-    pattern2 = re.compile(r"Cout optimal \(fxopt\)=([0-9.]+)")
+    pattern = re.compile(r"Temperature a la fin de l'algorithme=(-?[0-9.]+)")
+    pattern2 = re.compile(r"Cout optimal \(fxopt\)=(-?[0-9.]+)")
 
     match = pattern.search(resultat.stdout)
     match2 = pattern2.search(resultat.stdout)
