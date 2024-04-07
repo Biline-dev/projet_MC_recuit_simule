@@ -2,7 +2,7 @@
 #define PARAM_H
 
 #define  NBVILLES    100
-#define COTECARTE    10
+#define COTECARTE    50
 
 /*********************************************************************/
 /************ Verification contraintes sur les defines ***************/

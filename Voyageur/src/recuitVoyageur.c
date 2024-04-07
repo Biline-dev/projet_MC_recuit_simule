@@ -522,7 +522,7 @@ void EcrireCoutEtVisu(double fx, Chemin x,int affichageObligatoire)
 {
  (void)fx;(void)x;(void)affichageObligatoire;
  ecrireCout(fdCout,NbEssais,fx);
- //Visu(x,affichageObligatoire);
+ Visu(x,affichageObligatoire);
 }
 
 void FermetureFlots(void)
@@ -682,7 +682,7 @@ int main(int argc, char *argv[])
  printf("Temperature a la fin de l'algorithme=%f\n",T);
  printf("Cout optimal (fxopt)=%f\n",fxopt);
  printf("<--------------------\n");
- //Visu(xopt,1);
+ Visu(xopt,1);
 
  FermetureFlots();
 
